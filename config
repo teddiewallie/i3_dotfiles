@@ -1,0 +1,171 @@
+for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] gaps inner all set 20
+for_window [class="1Password"] move container to position 1000 0
+
+client.focused            #282828 #282828 #282828 #282828 #282828
+client.focused_inactive   #282828 #282828 #282828 #282828 #282828
+client.unfocused          #282828 #282828 #282828 #282828 #282828
+
+
+font pango:CMU Typewriter Text 14
+floating_modifier $mod
+
+# Hack to prevent bars and frames
+bindsym F13 focus left
+
+set $mod Mod4
+set $api exec --no-startup-id i3-api
+set $escape bindsym Escape exec --no-startup-id i3-api mode "default"
+
+$api init
+
+bindsym $mod+1 $api workspace 1
+bindsym $mod+2 $api workspace 2
+bindsym $mod+3 $api workspace 3
+bindsym $mod+4 $api workspace 4
+bindsym $mod+5 $api workspace 5
+bindsym $mod+f $api fullscreen
+
+mode "wmove" {
+  bindsym 1 $api wmove 1
+  bindsym 2 $api wmove 2
+  bindsym 3 $api wmove 3
+  bindsym 4 $api wmove 4
+  bindsym 5 $api wmove 5
+  $escape
+}
+
+mode "resize" {
+  bindsym h $api width dec
+  bindsym j $api height dec
+  bindsym k $api height inc
+  bindsym l $api width inc
+  $escape
+}
+
+mode "move" {
+  bindsym h $api move left
+  bindsym j $api move down
+  bindsym k $api move up
+  bindsym l $api move right
+  bindsym w $api mode wmove
+  $escape
+}
+
+mode "move_noescape" {
+  bindsym h $api move_noescape left
+  bindsym j $api move_noescape down
+  bindsym k $api move_noescape up
+  bindsym l $api move_noescape right
+  bindsym w $api mode wmove
+  $escape
+}
+
+mode "buffer" {
+  bindsym q $api quit
+  bindsym r $api mode resize
+  bindsym b $api fullscreen
+  bindsym f $api floating
+  bindsym s $api sticky
+  bindsym m $api mode move_noescape
+  $escape
+}
+
+mode "backlight" {
+  bindsym h $api backlight min
+  bindsym j $api backlight dec
+  bindsym k $api backlight inc
+  bindsym l $api backlight max
+
+  bindsym $mod+h $api backlight min
+  bindsym $mod+j $api backlight DEC
+  bindsym $mod+k $api backlight INC
+  bindsym $mod+l $api backlight max
+  $escape
+}
+
+mode "volume" {
+  bindsym h $api volume 0
+  bindsym j $api volume dec
+  bindsym k $api volume inc
+  bindsym l $api volume 100
+
+  bindsym $mod+h $api volume 0
+  bindsym $mod+j $api volume DEC
+  bindsym $mod+k $api volume INC
+  bindsym $mod+l $api volume 100
+
+  bindsym m $api volume mute
+  $escape
+}
+
+mode "system" {
+  bindsym r $api restart
+  bindsym b $api mode backlight
+  bindsym v $api mode volume
+  bindsym s $api toggle_bar
+
+  bindsym $mod+s $api susp
+
+  $escape
+}
+
+mode "workspace" {
+  bindsym 1 $api workspace_noescape 1
+  bindsym 2 $api workspace_noescape 2
+  bindsym 3 $api workspace_noescape 3
+  bindsym 4 $api workspace_noescape 4
+  bindsym 5 $api workspace_noescape 5
+
+  bindsym $mod+1 $api wmove_noescape 1
+  bindsym $mod+2 $api wmove_noescape 2
+  bindsym $mod+3 $api wmove_noescape 3
+  bindsym $mod+4 $api wmove_noescape 4
+  bindsym $mod+5 $api wmove_noescape 5
+
+  bindsym m mode wmove
+
+  $escape
+}
+
+mode "run" {
+  bindsym 1 $api run_1password
+  bindsym a $api run_alacritty
+  bindsym f $api run_firefox
+  bindsym s $api run_steam
+  $escape
+}
+
+mode "root" {
+  bindsym q $api quit
+  bindsym m $api mode move
+  bindsym r $api mode run
+  bindsym b $api mode buffer
+  bindsym s $api mode system
+  bindsym w $api mode workspace
+
+  bindsym h $api focus left
+  bindsym j $api focus down
+  bindsym k $api focus up
+  bindsym l $api focus right
+
+  bindsym $mod+space $api run_runner
+  $escape
+}
+
+bindsym $mod+space $api mode root
+
+bar {
+  status_command conky -c ~/.config/i3/bar.conf
+  position top
+  mode dock
+  colors {
+    background #282828
+    statusline #aaaa88
+    focused_workspace #282828 #282828 #aaaa88
+    active_workspace #282828 #282828 #aaaa88
+    urgent_workspace #282828 #282828 #ddddaa
+    inactive_workspace #282828 #282828 #555533
+  }
+}
+
