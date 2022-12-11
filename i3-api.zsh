@@ -132,6 +132,7 @@ susp            () { sudo systemctl suspend }
 run_1password   () { 1password --quick-access & }
 run_alacritty   () { alacritty & }
 run_firefox     () { firefox &   }
+run_discord     () { discord &   }
 run_steam       () { steam &     }
 
 not_implemented () { NOESCAPE=true; echo "not implemented" }
@@ -159,6 +160,7 @@ case $1 in
   run_1password)      run_1password               ;;
   run_alacritty)      run_alacritty               ;;
   run_firefox)        run_firefox                 ;;
+  run_discord)        run_discord                 ;;
   run_steam)          run_steam                   ;;
   run_runner)         run_runner                  ;;
 

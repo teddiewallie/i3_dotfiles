@@ -145,6 +145,7 @@ mode "run" {
   bindsym 1 $api run_1password
   bindsym a $api run_alacritty
   bindsym f $api run_firefox
+  bindsym d $api run_discord
   bindsym s $api run_steam
   $escape
 }
