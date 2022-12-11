@@ -16,6 +16,9 @@ width () {
   case $1 in
     inc) i3-msg resize grow width 10 px ;;
     dec) i3-msg resize shrink width 10 px ;;
+
+    INC) i3-msg resize grow width 80 px ;;
+    DEC) i3-msg resize shrink width 80 px ;;
   esac
 }
  
@@ -24,6 +27,9 @@ height () {
   case $1 in
     inc) i3-msg resize grow height 10 px ;;
     dec) i3-msg resize shrink height 10 px ;;
+
+    INC) i3-msg resize grow height 80 px ;;
+    DEC) i3-msg resize shrink height 80 px ;;
   esac
 }
 
@@ -111,7 +117,7 @@ fullscreen      () { i3-msg fullscreen toggle }
 workspace       () { i3-msg workspace number $1 }
 wmove           () { i3-msg move container to workspace number $1 }
 move            () { i3-msg move $1 }
-move_noescape   () { NOESCAPE=true; i3-msg move $1 }
+move_noescape   () { NOESCAPE=true; i3-msg move $@ }
 focus           () { i3-msg focus $1 }
 sticky          () { i3-msg sticky toggle }
 floating        () { i3-msg floating toggle }
@@ -131,34 +137,34 @@ run_steam       () { steam &     }
 not_implemented () { NOESCAPE=true; echo "not implemented" }
 
 case $1 in
-  init)               init                    ;;
-  fullscreen)         fullscreen              ;;
-  workspace)          workspace           $2  ;;
-  sticky)             sticky                  ;;
-  floating)           floating                ;;
-  move)               move                $2  ;;
-  wmove)              wmove               $2  ;;
-  focus)              focus               $2  ;;
-  restart)            restart                 ;;
-  quit)               quit                    ;;
-  width)              width               $2  ;;
-  height)             height              $2  ;;
-  mode)               mode                $2  ;;
-  backlight)          backlight           $2  ;;
-  volume)             volume              $2  ;;
-  susp)               susp                    ;;
-  key)                key                 $2  ;;
-  toggle_bar)         toggle_bar              ;;
+  init)               init                        ;;
+  fullscreen)         fullscreen                  ;;
+  workspace)          workspace           $2      ;;
+  sticky)             sticky                      ;;
+  floating)           floating                    ;;
+  move)               move                $2      ;;
+  wmove)              wmove               $2      ;;
+  focus)              focus               $2      ;;
+  restart)            restart                     ;;
+  quit)               quit                        ;;
+  width)              width               $2      ;;
+  height)             height              $2      ;;
+  mode)               mode                $2      ;;
+  backlight)          backlight           $2      ;;
+  volume)             volume              $2      ;;
+  susp)               susp                        ;;
+  key)                key                 $2      ;;
+  toggle_bar)         toggle_bar                  ;;
 
-  run_1password)      run_1password           ;;
-  run_alacritty)      run_alacritty           ;;
-  run_firefox)        run_firefox             ;;
-  run_steam)          run_steam               ;;
-  run_runner)         run_runner              ;;
+  run_1password)      run_1password               ;;
+  run_alacritty)      run_alacritty               ;;
+  run_firefox)        run_firefox                 ;;
+  run_steam)          run_steam                   ;;
+  run_runner)         run_runner                  ;;
 
-  move_noescape)      move_noescape       $2  ;;
-  wmove_noescape)     wmove_noescape      $2  ;;
-  workspace_noescape) workspace_noescape  $2  ;;
+  move_noescape)      move_noescape       ${@:2}  ;;
+  wmove_noescape)     wmove_noescape      $2      ;;
+  workspace_noescape) workspace_noescape  $2      ;;
 
   *) not_implemented ;;
 esac

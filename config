@@ -40,6 +40,12 @@ mode "resize" {
   bindsym j $api height dec
   bindsym k $api height inc
   bindsym l $api width inc
+
+  bindsym $mod+h $api width DEC
+  bindsym $mod+j $api height DEC
+  bindsym $mod+k $api height INC
+  bindsym $mod+l $api width INC
+
   $escape
 }
 
@@ -48,6 +54,7 @@ mode "move" {
   bindsym j $api move down
   bindsym k $api move up
   bindsym l $api move right
+
   bindsym w $api mode wmove
   $escape
 }
@@ -57,6 +64,12 @@ mode "move_noescape" {
   bindsym j $api move_noescape down
   bindsym k $api move_noescape up
   bindsym l $api move_noescape right
+
+  bindsym $mod+h $api move_noescape left 120 px
+  bindsym $mod+j $api move_noescape down 120 px
+  bindsym $mod+k $api move_noescape up 120 px
+  bindsym $mod+l $api move_noescape right 120 px
+
   bindsym w $api mode wmove
   $escape
 }
