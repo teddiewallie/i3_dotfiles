@@ -29,7 +29,12 @@ height () {
 
 backlight () {
   NOESCAPE=true
+
+  # To avoid a bug: 0%-12% seems to be 78%-100%
+  # while 12%-100% seems to be 0%-100%
+  # Lenovo Legion 5 Pro with GTX 3070
   perc=$((($(brightnessctl g)-12)*100/88))
+
   case $1 in
     max) brightnessctl set '100%';;
     min) brightnessctl set '12%' ;;
