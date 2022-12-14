@@ -1,6 +1,21 @@
 for_window [class="^.*"] border pixel 0
 for_window [class="^.*"] gaps inner all set 20
+
 for_window [class="1Password"] move container to position 1000 0
+for_window [class="transmission"] sticky enable
+for_window [class="transmission"] floating enable
+
+for_window [class="vlc"] sticky enable
+for_window [class="vlc"] floating enable
+for_window [class="vlc"] move container to position 1960 1274
+for_window [class="vlc"] resize set width 600 px
+for_window [class="vlc"] resize set height 326 px
+
+for_window [title="Picture-in-Picture"] sticky enable
+for_window [title="Picture-in-Picture"] floating enable
+for_window [title="Picture-in-Picture"] move container to position 1960 1274
+for_window [title="Picture-in-Picture"] resize set width 600 px
+for_window [title="Picture-in-Picture"] resize set height 340 px
 
 client.focused            #282828 #282828 #282828 #282828 #282828
 client.focused_inactive   #282828 #282828 #282828 #282828 #282828

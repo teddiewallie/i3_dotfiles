@@ -3,11 +3,11 @@
 NOESCAPE=false
 
 init () {
+  brightnessctl set 50%
   feh --bg-scale ~/Pictures/bg.png
   setxkbmap se_prog -option caps:super
   xrdb -merge ~/.Xresources
   rmmod pcspkr
-  picom &
 }
 
 

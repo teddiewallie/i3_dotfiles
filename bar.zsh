@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-date_out  () { date +"%H:%m" }
+datetime  () { date +"%H:%M" }
 ssid      () { iwconfig wlp4s0 | grep ESSID | cut -d'"' -f 2 }
 
 # To avoid a bug: 1%-12% seems to be 78%-100%
@@ -14,5 +14,5 @@ volume    () {
   echo $raw
 }
 
-echo "*$(blight)%  ♪$(volume)  ☎$(ssid)  ✺$(date_out) "
+echo "*$(blight)%  ♪$(volume)  ☎$(ssid)  ✺$(datetime) "
 
