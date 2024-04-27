@@ -1,200 +1,92 @@
-for_window [class="^.*"] border pixel 0
-for_window [class="^.*"] gaps inner all set 20
-
-for_window [class="1Password"] move container to position 1000 0
-for_window [class="transmission"] sticky enable
-for_window [class="transmission"] floating enable
-
-for_window [class="vlc"] sticky enable
-for_window [class="vlc"] floating enable
-for_window [class="vlc"] move container to position 1960 1274
-for_window [class="vlc"] resize set width 600 px
-for_window [class="vlc"] resize set height 326 px
-
-for_window [title="Picture-in-Picture"] sticky enable
-for_window [title="Picture-in-Picture"] floating enable
-for_window [title="Picture-in-Picture"] move container to position 1960 1274
-for_window [title="Picture-in-Picture"] resize set width 600 px
-for_window [title="Picture-in-Picture"] resize set height 340 px
-
-client.focused            #282828 #282828 #282828 #282828 #282828
-client.focused_inactive   #282828 #282828 #282828 #282828 #282828
-client.unfocused          #282828 #282828 #282828 #282828 #282828
-
-
-font pango:CMU Typewriter Text 14
-floating_modifier $mod
-
-# Hack to prevent bars and frames
-bindsym F13 focus left
-
 set $mod Mod4
-set $api exec --no-startup-id i3-api
-set $escape bindsym Escape exec --no-startup-id i3-api mode "default"
+font pango:monospace 8
+
+for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] gaps inner current set 24
+
+set $api exec --no-startup-id ~/.config/i3/i3-api
 
 $api init
 
-bindsym $mod+1 $api workspace 1
-bindsym $mod+2 $api workspace 2
-bindsym $mod+3 $api workspace 3
-bindsym $mod+4 $api workspace 4
-bindsym $mod+5 $api workspace 5
-bindsym $mod+f $api fullscreen
+bindsym       XF86AudioRaiseVolume  $api volume inc
+bindsym Shift+XF86AudioRaiseVolume  $api volume INC
 
-mode "wmove" {
-  bindsym 1 $api wmove 1
-  bindsym 2 $api wmove 2
-  bindsym 3 $api wmove 3
-  bindsym 4 $api wmove 4
-  bindsym 5 $api wmove 5
-  $escape
-}
+bindsym       XF86AudioLowerVolume  $api volume dec
+bindsym Shift+XF86AudioLowerVolume  $api volume DEC
+
+bindsym       XF86AudioMute         $api volume mute
+bindsym       XF86AudioMicMute      $api volume micmute
+
+bindsym       XF86MonBrightnessUp $api brightness inc
+bindsym Shift+XF86MonBrightnessUp $api brightness INC
+
+bindsym       XF86MonBrightnessDown $api brightness dec
+bindsym Shift+XF86MonBrightnessDown $api brightness DEC
+
+floating_modifier $mod
+
+bindsym F1 kill
+bindsym F3 $api run terminal
+bindsym F4 $api run runner
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+f fullscreen toggle
+
+bindsym $mod+space floating toggle
+bindsym $mod+Shift+space sticky toggle
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+bindsym $mod+Shift+r restart
 
 mode "resize" {
-  bindsym h $api width dec
-  bindsym j $api height dec
-  bindsym k $api height inc
-  bindsym l $api width inc
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
-  bindsym $mod+h $api width DEC
-  bindsym $mod+j $api height DEC
-  bindsym $mod+k $api height INC
-  bindsym $mod+l $api width INC
-
-  $escape
+        bindsym Escape mode "default"
 }
 
-mode "move" {
-  bindsym h $api move left
-  bindsym j $api move down
-  bindsym k $api move up
-  bindsym l $api move right
-
-  bindsym w $api mode wmove
-  $escape
-}
-
-mode "move_noescape" {
-  bindsym h $api move_noescape left
-  bindsym j $api move_noescape down
-  bindsym k $api move_noescape up
-  bindsym l $api move_noescape right
-
-  bindsym $mod+h $api move_noescape left 120 px
-  bindsym $mod+j $api move_noescape down 120 px
-  bindsym $mod+k $api move_noescape up 120 px
-  bindsym $mod+l $api move_noescape right 120 px
-
-  bindsym w $api mode wmove
-  $escape
-}
-
-mode "buffer" {
-  bindsym q $api quit
-  bindsym r $api mode resize
-  bindsym b $api fullscreen
-  bindsym f $api floating
-  bindsym s $api sticky
-  bindsym m $api mode move_noescape
-  $escape
-}
-
-mode "backlight" {
-  bindsym h $api backlight min
-  bindsym j $api backlight dec
-  bindsym k $api backlight inc
-  bindsym l $api backlight max
-
-  bindsym $mod+h $api backlight min
-  bindsym $mod+j $api backlight DEC
-  bindsym $mod+k $api backlight INC
-  bindsym $mod+l $api backlight max
-  $escape
-}
-
-mode "volume" {
-  bindsym h $api volume 0
-  bindsym j $api volume dec
-  bindsym k $api volume inc
-  bindsym l $api volume 100
-
-  bindsym $mod+h $api volume 0
-  bindsym $mod+j $api volume DEC
-  bindsym $mod+k $api volume INC
-  bindsym $mod+l $api volume 100
-
-  bindsym m $api volume mute
-  $escape
-}
-
-mode "system" {
-  bindsym r $api restart
-  bindsym b $api mode backlight
-  bindsym v $api mode volume
-  bindsym s $api toggle_bar
-
-  bindsym $mod+s $api susp
-
-  $escape
-}
-
-mode "workspace" {
-  bindsym 1 $api workspace_noescape 1
-  bindsym 2 $api workspace_noescape 2
-  bindsym 3 $api workspace_noescape 3
-  bindsym 4 $api workspace_noescape 4
-  bindsym 5 $api workspace_noescape 5
-
-  bindsym $mod+1 $api wmove_noescape 1
-  bindsym $mod+2 $api wmove_noescape 2
-  bindsym $mod+3 $api wmove_noescape 3
-  bindsym $mod+4 $api wmove_noescape 4
-  bindsym $mod+5 $api wmove_noescape 5
-
-  bindsym m mode wmove
-
-  $escape
-}
-
-mode "run" {
-  bindsym 1 $api run_1password
-  bindsym a $api run_alacritty
-  bindsym f $api run_firefox
-  bindsym d $api run_discord
-  bindsym s $api run_steam
-  $escape
-}
-
-mode "root" {
-  bindsym q $api quit
-  bindsym m $api mode move
-  bindsym r $api mode run
-  bindsym b $api mode buffer
-  bindsym s $api mode system
-  bindsym w $api mode workspace
-
-  bindsym h $api focus left
-  bindsym j $api focus down
-  bindsym k $api focus up
-  bindsym l $api focus right
-
-  bindsym $mod+space $api run_runner
-  $escape
-}
-
-bindsym $mod+space $api mode root
-
-bar {
-  status_command conky -c ~/.config/i3/bar.conf
-  position top
-  mode dock
-  colors {
-    background #282828
-    statusline #aaaa88
-    focused_workspace #282828 #282828 #aaaa88
-    active_workspace #282828 #282828 #aaaa88
-    urgent_workspace #282828 #282828 #ddddaa
-    inactive_workspace #282828 #282828 #555533
-  }
-}
+bindsym $mod+r mode "resize"
 

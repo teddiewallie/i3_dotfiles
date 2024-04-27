@@ -1,0 +1,44 @@
+#!/bin/sh
+
+init () {
+  setxkbmap se_prog -option caps:super
+  feh --bg-scale ~/bg.jpg
+}
+
+volume () {
+  case $1 in
+    inc) pactl set-sink-volume @DEFAULT_SINK@ +10% ;;
+    INC) pactl set-sink-volume @DEFAULT_SINK@ +25% ;;
+
+    dec) pactl set-sink-volume @DEFAULT_SINK@ -10% ;;
+    DEC) pactl set-sink-volume @DEFAULT_SINK@ -25% ;;
+
+    mute) pactl set-sink-mute @DEFAULT_SINK@ toggle ;;
+    micmute) pactl set-source-mute @DEFAULT_SOURCE@ toggle ;;
+  esac
+}
+
+brightness () {
+  case $1 in
+    inc) brightnessctl set +5% ;;
+    INC) brightnessctl set +25% ;;
+
+    dec) brightnessctl set 5%- ;;
+    DEC) brightnessctl set 25%- ;;
+  esac
+}
+
+run () {
+  case $1 in
+    terminal) alacritty ;;
+    runner) dmenu_run ;;
+  esac
+}
+
+case $1 in
+  init)             init                        ;;
+  volume)           volume           $2         ;;
+  brightness)       brightness       $2         ;;
+  run)              run              $2         ;;
+esac
+
