@@ -44,6 +44,11 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+space floating toggle
 bindsym $mod+Shift+space sticky toggle
 
+bindsym $mod+Left $api cmus prev
+bindsym $mod+Right $api cmus next
+bindsym $mod+Up $api cmus play
+bindsym $mod+Down $api cmus pause
+
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"

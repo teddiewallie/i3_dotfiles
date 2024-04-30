@@ -7,11 +7,11 @@ init () {
 
 volume () {
   case $1 in
-    inc) pactl set-sink-volume @DEFAULT_SINK@ +10% ;;
-    INC) pactl set-sink-volume @DEFAULT_SINK@ +25% ;;
+    inc) pactl set-sink-volume @DEFAULT_SINK@ +2% ;;
+    INC) pactl set-sink-volume @DEFAULT_SINK@ +15% ;;
 
-    dec) pactl set-sink-volume @DEFAULT_SINK@ -10% ;;
-    DEC) pactl set-sink-volume @DEFAULT_SINK@ -25% ;;
+    dec) pactl set-sink-volume @DEFAULT_SINK@ -2% ;;
+    DEC) pactl set-sink-volume @DEFAULT_SINK@ -15% ;;
 
     mute) pactl set-sink-mute @DEFAULT_SINK@ toggle ;;
     micmute) pactl set-source-mute @DEFAULT_SOURCE@ toggle ;;
@@ -35,10 +35,20 @@ run () {
   esac
 }
 
+cmus_ctrl () {
+  case $1 in
+    play) cmus-remote --play ;;
+    pause) cmus-remote --pause ;;
+    next) cmus-remote --next ;;
+    prev) cmus-remote --prev ;;
+  esac
+}
+
 case $1 in
   init)             init                        ;;
   volume)           volume           $2         ;;
   brightness)       brightness       $2         ;;
   run)              run              $2         ;;
+  cmus)             cmus_ctrl        $2         ;;
 esac
 
